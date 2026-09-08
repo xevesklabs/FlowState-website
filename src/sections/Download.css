@@ -1,0 +1,162 @@
+.download {
+  position: relative;
+  padding: var(--section-padding);
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Green radial glow behind the CTA */
+.download__glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(92, 138, 99, 0.1) 0%,
+    rgba(92, 138, 99, 0.04) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* Inner layout */
+.download__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* Heading */
+.download__heading {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+}
+
+.download__heading-accent {
+  color: var(--accent-green);
+  font-style: italic;
+}
+
+.download__sub {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 420px;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+
+/* Download button — larger than standard */
+.download__btn {
+  padding: 1rem 2.25rem;
+  font-size: 1rem;
+  margin-bottom: 0.85rem;
+  box-shadow: 0 0 40px rgba(92, 138, 99, 0.2);
+}
+.download__btn:hover {
+  box-shadow: 0 0 60px rgba(92, 138, 99, 0.35);
+}
+
+/* Download count */
+.download__count {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 2rem;
+}
+
+/* Platform pills */
+.download__platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.platform-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  border: 1px solid var(--border-dim);
+  transition: all 0.2s ease;
+}
+
+.platform-pill--active {
+  color: var(--text-primary);
+  border-color: var(--accent-green);
+  background: rgba(92, 138, 99, 0.08);
+  text-decoration: none;
+}
+.platform-pill--active:hover {
+  background: rgba(92, 138, 99, 0.15);
+  box-shadow: 0 0 16px rgba(92, 138, 99, 0.15);
+}
+
+.platform-pill--coming {
+  color: var(--text-muted);
+  cursor: default;
+}
+
+.platform-pill__tag {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--accent-orange);
+  border: 1px solid rgba(194, 125, 56, 0.3);
+  padding: 0.05rem 0.3rem;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+}
+
+/* Assurance strip */
+.download__assurance {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.assurance-item {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+}
+
+.assurance-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .download__platforms {
+    gap: 0.4rem;
+  }
+  .platform-pill {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.7rem;
+  }
+  .download__assurance {
+    gap: 1rem;
+  }
+}

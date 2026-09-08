@@ -32,36 +32,36 @@ This repository is the **marketing website** — a React + Vite single-page app 
 
 ```
 flowstate-website/
-├── index.html                    # Entry HTML (SEO + OG meta tags)
-├── vite.config.js
+├── index.html                        # Entry HTML with SEO + Open Graph meta
+├── vite.config.js                    # Vite + @vitejs/plugin-react
 ├── package.json
 ├── .gitignore
-├── .env.example                  # Environment variable template
+├── .env.example                      # Environment variable template
 ├── README.md
 ├── docs/
-│   ├── architecture.md           # Full technical architecture
-│   └── changelog.md              # Feature history
+│   ├── architecture.md               # Technical architecture reference
+│   └── changelog.md                  # Full feature history
 └── src/
-    ├── main.jsx                  # React entry
-    ├── App.jsx                   # Root — assembles all sections
-    ├── index.css                 # Design tokens + global styles
+    ├── main.jsx                      # React root
+    ├── App.jsx                       # Layout, section assembly, scroll-reveal
+    ├── index.css                     # Design tokens + global styles
     ├── lib/
-    │   └── api.js                # API endpoint config
+    │   └── api.js                    # API base URL + endpoint map
+    ├── hooks/
+    │   └── useDownloadCount.js       # Live download count from flowstate-api
     ├── components/
-    │   ├── Navbar.jsx / .css
-    │   ├── Footer.jsx / .css
-    │   ├── KanbanMockup.jsx / .css
-    │   ├── DashboardMockup.jsx / .css
-    │   ├── NotesMockup.jsx / .css
-    │   └── PomodoroMockup.jsx / .css
-    ├── sections/
-    │   ├── Hero.jsx / .css
-    │   ├── Stats.jsx / .css
-    │   ├── Features.jsx / .css
-    │   ├── Showcase.jsx / .css
-    │   └── Download.jsx / .css
-    └── hooks/
-        └── useDownloadCount.js
+    │   ├── Navbar.jsx / .css         # Sticky glassmorphism top navbar
+    │   ├── Footer.jsx / .css         # 3-column footer with social links
+    │   ├── KanbanMockup.jsx / .css   # CSS Kanban board replica
+    │   ├── DashboardMockup.jsx / .css# CSS Dashboard screen replica
+    │   ├── NotesMockup.jsx / .css    # CSS Notes screen replica
+    │   └── PomodoroMockup.jsx / .css # CSS Pomodoro timer replica
+    └── sections/
+        ├── Hero.jsx / .css           # Above-the-fold hero
+        ├── Stats.jsx / .css          # 4-item horizontal trust bar
+        ├── Features.jsx / .css       # Asymmetric bento feature grid
+        ├── Showcase.jsx / .css       # Tab switcher + app screen viewer
+        └── Download.jsx / .css       # Download CTA + OS selector
 ```
 
 ---
@@ -77,7 +77,7 @@ npm install
 ```bash
 cp .env.example .env
 ```
-Then open `.env` and set `VITE_API_URL` to your deployed `flowstate-api` URL.  
+Open `.env` and set `VITE_API_URL` to your deployed `flowstate-api` URL.  
 Leave it as `http://localhost:5000` if running the API locally.
 
 **3. Start the dev server:**
@@ -100,32 +100,47 @@ npm run preview   # Preview the production build locally
 |---|---|---|
 | `VITE_API_URL` | Base URL of the deployed `flowstate-api` | `http://localhost:5000` |
 
-> ⚠️ Never commit `.env`. It is in `.gitignore`. Use `.env.example` as the template.
+> ⚠️ Never commit `.env`. It is gitignored. Use `.env.example` as the template.
+
+---
+
+## Page Sections
+
+| Section | Description |
+|---|---|
+| **Navbar** | Sticky top bar with scroll-aware glassmorphism and Download CTA |
+| **Hero** | Full-bleed headline, dual CTA pair, floating Kanban mockup |
+| **Stats** | 4-item trust bar: Offline · Zero Latency · Private · Free |
+| **Features** | Asymmetric bento grid showcasing all 6 app modules |
+| **Showcase** | Tab switcher (Dashboard / Tasks / Notes / Pomodoro) with app frame |
+| **Download** | Conversion CTA, platform selector, live download count |
+| **Footer** | Brand column, product + developer links, social icons |
 
 ---
 
 ## Deployment to flowstate.xevesk.com
 
-1. Push this repo to GitHub
+1. Push this repo to GitHub (`github.com/xevesklabs/FlowState-website`)
 2. Connect it to [Vercel](https://vercel.com)
 3. Set `VITE_API_URL` as an environment variable in the Vercel dashboard
-4. In your domain registrar, add:
+4. In your domain registrar (xevesk.com DNS), add:
    ```
    CNAME  flowstate  →  cname.vercel-dns.com
    ```
-5. Add `flowstate.xevesk.com` as a custom domain in Vercel → it auto-provisions HTTPS
+5. Add `flowstate.xevesk.com` as a custom domain in Vercel — HTTPS is auto-provisioned
 
 ---
 
 ## How it connects to flowstate-api
 
-The download button calls:
+The Download button calls:
 ```
 GET https://your-api.onrender.com/api/downloads/windows
 ```
-This hits the `flowstate-api`, increments the MongoDB download counter, then redirects the user to the `.exe` installer file.
+The API increments the MongoDB download counter, then redirects the user to the `.exe` installer.  
+The live download count widget calls `GET /api/stats` and silently hides itself if the API is offline.
 
-User data (tasks, habits, notes) **never** touches this website or the API — it stays entirely on the user's device inside the desktop app.
+User productivity data (tasks, habits, notes) **never** touches this website or API — it stays entirely on the user's device inside the desktop app.
 
 ---
 

@@ -14,7 +14,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Features Grid:** Asymmetric 3-column bento grid showcasing all 6 app modules. Dashboard card spans 2 columns. Per-accent radial hover glow, IntersectionObserver scroll-reveal with staggered delays.
 - **DashboardMockup Component:** CSS-drawn Dashboard screen with sidebar nav, 30-day heatmap grid (4 intensity levels), urgent tasks with OVR badges, and a habit checklist launchpad.
 - **NotesMockup Component:** CSS-drawn Notes screen with sidebar note list (pin badge, active state), rich-text editor panel with heading/paragraph/bullet styles, and a blinking green cursor.
+- **PomodoroMockup Component:** SVG circular progress ring at 72% with green drop-shadow glow, mode tab strip (Focus / Short Break / Long Break), pause and reset controls, daily stats row (sessions, focused time, streak).
+- **Showcase Section:** Tab switcher (Dashboard / Tasks / Notes / Pomodoro) connected to a glassmorphism app frame with window chrome. Active tab connects visually to the frame border. Each screen swaps in with a 250ms fade-in animation. Horizontally scrollable on mobile.
+- **Download Section:** Centred layout with a green radial background glow, oversized download button with glow shadow, live download counter (gracefully hidden when API is offline), platform pills (Windows active, macOS/Linux/iOS/Android tagged v2), and a reassurance strip (Local Data · No Account · Free Forever · Open Source).
+- **useDownloadCount Hook:** Async hook fetching `/api/stats` from flowstate-api for the total download count. Silently fails so the UI degrades gracefully when the API is offline.
 - **vite.config.js + React dependencies:** Added `@vitejs/plugin-react`, `react`, `react-dom` — fixed missing dependency error from vanilla Vite scaffold.
+
 
 ---
 
