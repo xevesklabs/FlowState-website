@@ -6,7 +6,7 @@
 
 | Repo | Role | Stack |
 |---|---|---|
-| `flowstate-website` | Marketing site (this repo) | React + Vite (deployed to `flowstate.xevesk.com`) |
+| `flowstate-website` | Marketing site (this repo) | React 19 + Vite, deployed to `flowstate.xevesk.com` |
 | `flowstate-api` | Anonymous telemetry + download tracking | Express + Node + MongoDB Atlas |
 
 ---
@@ -14,67 +14,150 @@
 ## Frontend Architecture
 
 ### Entry Point
-- `index.html` → `src/main.jsx` → `src/App.jsx`
-- `App.jsx` mounts a global `IntersectionObserver` (via `useScrollReveal`) that drives `.reveal` entrance animations for all sections.
-- All sections are stacked vertically in a single-page layout (no routing needed).
+```
+index.html → src/main.jsx → src/App.jsx
+```
+- `App.jsx` mounts a global `IntersectionObserver` via `useScrollReveal()` that adds the `.visible` class to any `.reveal` element when it enters the viewport, driving all scroll-entrance animations across every section.
+- All sections are stacked vertically in a single-page layout. No client-side routing needed.
 
-### Section Composition
+### Component Tree
 ```
 App.jsx
-├── Navbar          (fixed sticky top)
-├── Hero            (above-the-fold)
-├── Stats           (trust bar)
-├── Features        (bento grid)
-├── Showcase        (app UI mockup viewer)
-├── Download        (conversion CTA)
-└── Footer
+├── <div class="grain-overlay" />   ← Fixed noise texture overlay (opacity 0.025)
+├── Navbar                          ← Sticky, scroll-aware glassmorphism top bar
+├── main
+│   ├── Hero                        ← Above-the-fold with KanbanMockup
+│   ├── Stats                       ← 4-item horizontal trust bar
+│   ├── Features                    ← Asymmetric 3-column bento grid
+│   ├── Showcase                    ← Tab switcher + app screen mockups
+│   └── Download                    ← Conversion CTA + OS selector
+└── Footer                          ← Brand column, links, social icons
 ```
 
-### Design System
-- All design tokens are defined as CSS custom properties in `src/index.css`.
-- The palette mirrors the FlowState desktop app exactly to maintain brand cohesion.
-- Typography: Playfair Display (headings), Inter (body), JetBrains Mono (labels/badges).
-- No CSS framework — pure CSS with custom variables for full control and minimal bundle size.
+### CSS Mockup Components
+These are pure-CSS replicas of the FlowState app screens used in the Hero and Showcase sections. They can be swapped for real screenshots at any time by replacing the component with an `<img>` tag.
 
-### API Communication
-- `src/lib/api.js` centralizes all endpoint URLs.
-- The API base URL is read from `import.meta.env.VITE_API_URL` (Vite env var).
-- The site communicates with `flowstate-api` only for:
-  1. Download button redirects (`GET /api/downloads/:platform`)
-  2. Live download count display (`GET /api/stats`) — optional widget
-
-### State Management
-- No global state library. Local `useState`/`useEffect` per component.
-- `useDownloadCount` hook encapsulates the single async API call for download stats.
+| Component | Renders |
+|---|---|
+| `KanbanMockup` | 3-column Kanban board with window chrome, task cards, and priority badges |
+| `DashboardMockup` | Sidebar nav, 30-day heatmap grid, urgent tasks, habit launchpad |
+| `NotesMockup` | Split-pane with note sidebar list and rich-text editor panel |
+| `PomodoroMockup` | SVG circular progress ring, mode tabs, controls, daily stats row |
 
 ---
 
-## Styling Standards
+## Design System
 
-- Uses standard CSS with custom CSS variables defined in `src/index.css`.
-- Dark premium theme (`#030303` void background → `#111111` panels).
-- Entrance animations driven by `IntersectionObserver` — class `.reveal` toggled to `.reveal.visible`.
-- Hover transforms kept subtle (`translateY(-1px)`, `translateY(-2px)`) — never jarring.
-- Grain/noise overlay applied at `opacity: 0.025` via a fixed `div.grain-overlay`.
+All design tokens are CSS custom properties in `src/index.css`. The palette mirrors the FlowState desktop app exactly for brand cohesion.
+
+### Color Palette
+```css
+--bg-void:    #030303;   /* Page background */
+--bg-darker:  #050505;   /* Sidebar backgrounds */
+--bg-dark:    #0a0a0a;   /* Mockup backgrounds */
+--bg-panel:   #111111;   /* Card surfaces */
+--bg-raised:  #161616;   /* Hover surfaces */
+--border-dim:    #1a1a1a;
+--border-color:  #222222;
+--border-bright: #333333;
+--text-primary:   #ebebeb;
+--text-secondary: #888888;
+--text-muted:     #444444;
+--accent-green:  #5c8a63;
+--accent-red:    #b84b4b;
+--accent-orange: #c27d38;
+--accent-blue:   #4a6fa5;
+```
+
+### Typography
+```css
+--font-serif: 'Playfair Display', Georgia, serif;  /* Section headings */
+--font-sans:  'Inter', sans-serif;                  /* Body text */
+--font-mono:  'JetBrains Mono', monospace;          /* Labels, badges, code */
+```
+
+### Scroll-Reveal System
+- Elements tagged `.reveal` start at `opacity: 0; transform: translateY(24px)`.
+- `App.jsx` runs a single `IntersectionObserver` (threshold `0.12`) that adds `.visible` when an element enters the viewport and then `unobserve`s it.
+- Stagger delays: `.reveal-delay-1` through `.reveal-delay-5` add `transition-delay` in 100ms increments.
+
+### Grain Overlay
+A fixed `div.grain-overlay` using an inline SVG `feTurbulence` noise filter at `opacity: 0.025` adds a subtle film-grain texture across the entire page without affecting interactivity (`pointer-events: none`).
+
+---
+
+## API Communication
+
+`src/lib/api.js` centralizes all endpoint URLs:
+
+```js
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+```
+
+The site communicates with `flowstate-api` only for:
+1. **Download redirects** — `GET /api/downloads/:platform` (increments count, redirects to installer)
+2. **Live stats** — `GET /api/stats` (optional download counter widget)
+
+> **TODO:** Replace `localhost:5000` in `.env` with the deployed `flowstate-api` URL when it goes live.
+
+---
+
+## Folder Structure
+
+```
+flowstate-website/
+├── index.html                    # Entry HTML with SEO + OG meta tags
+├── vite.config.js                # Vite config with @vitejs/plugin-react
+├── package.json
+├── .gitignore
+├── .env.example                  # Environment variable template
+├── README.md
+├── docs/
+│   ├── architecture.md           # This file
+│   └── changelog.md
+└── src/
+    ├── main.jsx                  # React root
+    ├── App.jsx                   # Layout, section assembly, scroll-reveal
+    ├── index.css                 # Design tokens + global styles
+    ├── lib/
+    │   └── api.js                # API base URL + endpoint map
+    ├── components/
+    │   ├── Navbar.jsx / .css     # Sticky glassmorphism navbar
+    │   ├── Footer.jsx / .css     # 3-column footer
+    │   ├── KanbanMockup.jsx / .css
+    │   ├── DashboardMockup.jsx / .css
+    │   ├── NotesMockup.jsx / .css
+    │   └── PomodoroMockup.jsx / .css
+    ├── sections/
+    │   ├── Hero.jsx / .css       # Above-the-fold hero
+    │   ├── Stats.jsx / .css      # Trust bar
+    │   ├── Features.jsx / .css   # Bento feature grid
+    │   ├── Showcase.jsx / .css   # Tab switcher + mockup viewer
+    │   └── Download.jsx / .css   # Download CTA + OS selector
+    └── hooks/
+        └── useDownloadCount.js   # Fetches live download count from flowstate-api
+```
+
+---
+
+## Styling Conventions
+
+- Each component owns its own `.css` file imported directly into its `.jsx` — no global section imports.
+- Hover transforms are kept subtle: `translateY(-1px)` or `translateY(-2px)` max.
+- Accent colors applied at `0.06–0.18` opacity for backgrounds, `0.3` for borders, full for icons.
+- All `border-radius` on cards: `6–12px`. Window chrome mockups: `10–12px`.
 
 ---
 
 ## Deployment
 
-- **Platform:** Vercel (recommended) or any static host
-- **Domain:** `flowstate.xevesk.com`
-- **DNS:** `CNAME flowstate → cname.vercel-dns.com`
-- **Build command:** `npm run build`
-- **Output directory:** `dist/`
-- **Required env var:** `VITE_API_URL` → deployed `flowstate-api` URL
+| Setting | Value |
+|---|---|
+| Platform | Vercel |
+| Domain | `flowstate.xevesk.com` |
+| DNS record | `CNAME flowstate → cname.vercel-dns.com` |
+| Build command | `npm run build` |
+| Output directory | `dist/` |
+| Required env var | `VITE_API_URL` → deployed `flowstate-api` URL |
 
----
-
-## Folder Conventions
-
-- Each section lives in `src/sections/SectionName.jsx` + `SectionName.css`
-- Each shared component lives in `src/components/ComponentName.jsx` + `ComponentName.css`
-- API glue code lives in `src/lib/`
-- Custom hooks live in `src/hooks/`
-
-*Rule: Never import styles globally from a section file. Each component owns its own `.css` file.*
+*Rule: Never commit `.env`. Always use `.env.example` as the template.*
