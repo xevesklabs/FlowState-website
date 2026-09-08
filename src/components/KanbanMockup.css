@@ -1,0 +1,143 @@
+.kanban-mockup {
+  width: 100%;
+  background: var(--bg-dark);
+  border-radius: 10px;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Window chrome bar */
+.kanban-mockup__chrome {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1rem;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border-dim);
+}
+
+.chrome-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.chrome-dot--red    { background: #ff5f57; }
+.chrome-dot--yellow { background: #febc2e; }
+.chrome-dot--green  { background: #28c840; }
+
+.chrome-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin-left: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+/* Board */
+.kanban-mockup__board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  padding: 1rem;
+  gap: 0.75rem;
+  min-height: 280px;
+}
+
+/* Column */
+.mock-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mock-column__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border-dim);
+  margin-bottom: 0.25rem;
+}
+
+.mock-column__title {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+.col--neutral { color: var(--text-muted); }
+.col--blue    { color: var(--accent-blue); }
+.col--green   { color: var(--accent-green); }
+
+.mock-column__count {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  background: var(--bg-panel);
+  border: 1px solid var(--border-dim);
+  padding: 0.1rem 0.35rem;
+  border-radius: 10px;
+}
+
+/* Card */
+.mock-card {
+  background: #0c0c0c;
+  border: 1px solid var(--border-dim);
+  border-radius: 5px;
+  padding: 0.65rem 0.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  transition: border-color 0.2s;
+}
+.mock-card:hover {
+  border-color: var(--border-color);
+}
+.mock-card--done {
+  opacity: 0.45;
+}
+
+.mock-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mock-badge {
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.08em;
+  padding: 0.1rem 0.35rem;
+  border-radius: 2px;
+  border: 1px solid;
+}
+.badge--red    { color: #d94b4b; border-color: rgba(217,75,75,0.3); }
+.badge--orange { color: #d98e4b; border-color: rgba(217,142,75,0.3); }
+.badge--green  { color: var(--accent-green); border-color: rgba(92,138,99,0.3); }
+
+.mock-time {
+  font-family: var(--font-mono);
+  font-size: 0.52rem;
+  color: var(--text-muted);
+}
+
+.mock-card__title {
+  font-size: 0.72rem;
+  color: var(--text-primary);
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.mock-card__bottom {
+  display: flex;
+  align-items: center;
+}
+
+.mock-avatar {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--bg-raised);
+  border: 1px solid var(--border-color);
+}

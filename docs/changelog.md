@@ -7,6 +7,10 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+- **Hero Section:** Full-bleed dark hero with dot-grid background, dual radial green/blue glows, large Playfair Display headline with italic green accent, primary Download CTA and ghost GitHub button, and a floating CSS-drawn Kanban board mockup with a gentle float animation.
+- **KanbanMockup Component:** Pixel-faithful CSS replica of the FlowState Kanban board including window chrome bar, 3-column layout, priority badges, and task cards. Serves as a placeholder until real screenshots are available.
+
 ---
 
 ## Phase 1 — Foundation & Design System
