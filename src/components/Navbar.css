@@ -2,18 +2,23 @@
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
+  width: 100%;
   z-index: 100;
-  padding: 1.25rem 0;
-  transition: background-color 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+  background: transparent;
+  padding: 1.5rem 0;
+  transition: padding var(--duration-medium) var(--ease-flow),
+              background var(--duration-medium) var(--ease-flow),
+              border-bottom var(--duration-medium) var(--ease-flow),
+              backdrop-filter var(--duration-medium) var(--ease-flow);
   border-bottom: 1px solid transparent;
 }
 
 .navbar--scrolled {
-  background-color: rgba(5, 5, 5, 0.82);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom-color: var(--border-dim);
+  padding: 0.75rem 0;
+  background: rgba(7, 8, 9, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-dim);
 }
 
 .navbar__inner {

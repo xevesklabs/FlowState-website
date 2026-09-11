@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
 import Hero from './sections/Hero.jsx';
+import Stats from './sections/Stats.jsx';
 import Features from './sections/Features.jsx';
+import Philosophy from './sections/Philosophy.jsx';
 import Showcase from './sections/Showcase.jsx';
 import Download from './sections/Download.jsx';
-import Stats from './sections/Stats.jsx';
 
-// Scroll-reveal: attach IntersectionObserver to all .reveal elements
 function useScrollReveal() {
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -19,7 +19,7 @@ function useScrollReveal() {
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0.12, rootMargin: '0px 0px -50px 0px' }
     );
 
     const targets = document.querySelectorAll('.reveal');
@@ -29,13 +29,51 @@ function useScrollReveal() {
   }, []);
 }
 
+function CursorAtmosphere() {
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const el = document.getElementById('cursor-glow');
+    if (!el) return;
+
+    let rafId;
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let currentX = mouseX;
+    let currentY = mouseY;
+    const ease = 0.06;
+
+    const onMouseMove = (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    };
+
+    const animate = () => {
+      currentX += (mouseX - currentX) * ease;
+      currentY += (mouseY - currentY) * ease;
+      el.style.transform = `translate3d(calc(${currentX}px - 50vw), calc(${currentY}px - 50vh), 0)`;
+      rafId = requestAnimationFrame(animate);
+    };
+
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    rafId = requestAnimationFrame(animate);
+
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  return <div id="cursor-glow" aria-hidden="true" />;
+}
+
 export default function App() {
   useScrollReveal();
 
   return (
     <>
-      {/* Grain texture overlay — sits on top of everything */}
       <div className="grain-overlay" aria-hidden="true" />
+      <CursorAtmosphere />
 
       <Navbar />
 
@@ -43,6 +81,7 @@ export default function App() {
         <Hero />
         <Stats />
         <Features />
+        <Philosophy />
         <Showcase />
         <Download />
       </main>

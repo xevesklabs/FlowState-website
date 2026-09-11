@@ -16,7 +16,6 @@ const tabs = [
 export default function Showcase() {
   const [active, setActive] = useState('dashboard');
   const activeTab = tabs.find((t) => t.id === active);
-  const ActiveComponent = activeTab.Component;
 
   return (
     <section className="showcase" id="showcase" aria-label="App showcase">
@@ -24,10 +23,9 @@ export default function Showcase() {
 
         {/* Header */}
         <div className="showcase__header reveal">
-          <p className="section-label">Showcase</p>
           <h2 className="section-heading">
             Built for the way developers<br />
-            <em className="showcase__heading-accent">actually work.</em>
+            <span className="showcase__heading-secondary">actually work.</span>
           </h2>
           <p className="section-subheading">
             Every screen is crafted for focus. No clutter, no distractions —
@@ -36,11 +34,7 @@ export default function Showcase() {
         </div>
 
         {/* Tab bar */}
-        <div
-          className="showcase__tabs reveal reveal-delay-1"
-          role="tablist"
-          aria-label="App screens"
-        >
+        <div className="showcase__tabs reveal" role="tablist" aria-label="App screens">
           {tabs.map(({ id, label, icon: Icon }) => (
             <button
               key={id}
@@ -57,11 +51,7 @@ export default function Showcase() {
         </div>
 
         {/* App frame */}
-        <div
-          id={`panel-${active}`}
-          role="tabpanel"
-          className="showcase__frame reveal reveal-delay-2"
-        >
+        <div className="showcase__frame reveal">
           {/* Window chrome */}
           <div className="showcase__chrome">
             <div className="showcase__chrome-dots">
@@ -75,9 +65,19 @@ export default function Showcase() {
             <div className="showcase__chrome-spacer" />
           </div>
 
-          {/* Animated screen swap */}
-          <div className="showcase__screen" key={active}>
-            <ActiveComponent />
+          {/* Screen container */}
+          <div className="showcase__screens">
+            {tabs.map(({ id, Component }) => (
+              <div
+                key={id}
+                id={`panel-${id}`}
+                role="tabpanel"
+                className={`showcase__screen ${active === id ? 'showcase__screen--active' : ''}`}
+                aria-hidden={active !== id}
+              >
+                <Component />
+              </div>
+            ))}
           </div>
         </div>
 

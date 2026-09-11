@@ -8,8 +8,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Added
+- **Design Overhaul:** Completely reimagined the visual identity to align with the "flow" philosophy. Added subtle cursor-reactive atmospheric glow (`requestAnimationFrame` + `mix-blend-mode`), smoother eased CSS transitions, and deep dark theme refinements (`#070809` background).
+- **Philosophy Section:** Added a new manifesto section communicating the local-first, zero-cloud architecture with a visual data flow diagram.
+- **Accessibility & Motion System:** Added robust `prefers-reduced-motion` handling to selectively disable atmospheric cursor effects and scroll-reveals for sensitive users.
+- **SEO & Structured Data:** Overhauled `index.html` with full Open Graph tags, Twitter cards, canonical link, and JSON-LD `SoftwareApplication` structured data. Added `robots.txt` and `sitemap.xml`.
+
+### Changed
+- **Showcase Continuity:** Showcase tabs now morph and transition smoothly without hard cuts via absolute positioning and scale/opacity transforms.
+- **Hero Redesign:** Cleaned up typography rhythm (sans vs serif). Hero mockup now features a subtle 3D parallax effect mapped to mouse position.
+- **Features Hierarchy:** Shifted from an equal 6-card grid to a dominant Dashboard feature card spanning two columns, with refined accent colors (violet, cyan, primary green).
+- **Download Conversion:** Replaced scattered download layout with a trust-oriented `FLOWSTATE.EXE` product card. Platform selector now uses disabled states for upcoming platforms.
+- **Typography:** Removed excessive italic usage in favor of a cleaner typographic rhythm (Sans for descriptions, Mono for technical labels, Serif strictly for emotional moments).
 - **Favicon:** Added custom "fs" monogram logo as the site favicon (`/favicon.png`).
-- **Hero Section:** Full-bleed dark hero with dot-grid background, dual radial green/blue glows, large Playfair Display headline with italic green accent, primary Download CTA and ghost GitHub button, and a floating CSS-drawn Kanban board mockup with a gentle float animation.
 - **KanbanMockup Component:** Pixel-faithful CSS replica of the FlowState Kanban board including window chrome bar, 3-column layout, priority badges, and task cards.
 - **Stats Bar:** Horizontal 4-item trust row (Offline, Zero Latency, Private by Design, No Subscriptions) with Lucide icons, column dividers, and hover highlight. Responsive 2-column on mobile.
 - **Features Grid:** Asymmetric 3-column bento grid showcasing all 6 app modules. Dashboard card spans 2 columns. Per-accent radial hover glow, IntersectionObserver scroll-reveal with staggered delays.

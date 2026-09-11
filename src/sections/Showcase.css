@@ -1,126 +1,117 @@
 .showcase {
-  padding: var(--section-padding);
+  background-color: var(--bg-void);
+  padding-bottom: 6rem;
 }
 
 .showcase__header {
+  text-align: center;
   margin-bottom: 3rem;
 }
 
-.showcase__heading-accent {
+.showcase__heading-secondary {
   color: var(--text-secondary);
-  font-style: italic;
 }
 
-/* Tab bar */
 .showcase__tabs {
   display: flex;
-  gap: 0.25rem;
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border-dim);
-  padding-bottom: 0;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
 }
 
 .showcase__tab {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.6rem 1.1rem;
-  border-radius: 6px 6px 0 0;
+  padding: 0.6rem 1.25rem;
+  border-radius: 8px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border-dim);
+  color: var(--text-secondary);
   font-family: var(--font-sans);
-  font-size: 0.85rem;
-  font-weight: 400;
-  color: var(--text-muted);
-  background: transparent;
-  border: 1px solid transparent;
-  border-bottom: none;
-  cursor: pointer;
-  transition: color 0.2s ease, background-color 0.2s ease;
-  position: relative;
-  bottom: -1px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all var(--duration-fast) var(--ease-out);
 }
 
 .showcase__tab:hover {
-  color: var(--text-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
 }
 
 .showcase__tab--active {
-  color: var(--text-primary);
-  background: var(--bg-panel);
-  border-color: var(--border-dim);
-  border-bottom-color: var(--bg-panel);
+  background: var(--accent-primary-glow);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
 }
 
-/* App frame */
 .showcase__frame {
+  max-width: 1100px;
+  margin: 0 auto;
   border: 1px solid var(--border-color);
-  border-radius: 0 10px 10px 10px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow:
-    0 0 0 1px var(--border-dim),
-    0 40px 100px rgba(0, 0, 0, 0.55),
-    0 0 80px rgba(92, 138, 99, 0.04);
+  background: var(--bg-panel);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4), 0 0 40px rgba(134,184,138,0.02);
 }
 
-/* Window chrome */
 .showcase__chrome {
+  height: 44px;
+  background: var(--bg-raised);
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
-  padding: 0.65rem 1rem;
-  background: var(--bg-panel);
-  border-bottom: 1px solid var(--border-dim);
-  gap: 0.75rem;
+  padding: 0 1rem;
+  justify-content: space-between;
 }
 
 .showcase__chrome-dots {
   display: flex;
-  align-items: center;
-  gap: 0.4rem;
+  gap: 6px;
+  width: 60px;
 }
-
-.chrome-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.chrome-dot--red    { background: #ff5f57; }
-.chrome-dot--yellow { background: #febc2e; }
-.chrome-dot--green  { background: #28c840; }
 
 .showcase__chrome-title {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
-  letter-spacing: 0.04em;
-  flex: 1;
+  flex-grow: 1;
   text-align: center;
 }
 
 .showcase__chrome-spacer {
-  width: 50px; /* balance the dots on the left */
+  width: 60px;
 }
 
-/* Screen — fade-in on tab change */
+.showcase__screens {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
+  background: var(--bg-dark);
+}
+
 .showcase__screen {
-  animation: screen-fade 0.25s ease forwards;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.98) translateY(10px);
+  transition: opacity var(--duration-medium) var(--ease-smooth),
+              transform var(--duration-medium) var(--ease-smooth);
 }
 
-@keyframes screen-fade {
-  from { opacity: 0; transform: translateY(4px); }
-  to   { opacity: 1; transform: translateY(0); }
+.showcase__screen--active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1) translateY(0);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
-  .showcase__tabs {
-    overflow-x: auto;
-    gap: 0;
-  }
-  .showcase__tab {
-    font-size: 0.8rem;
-    padding: 0.55rem 0.85rem;
-    white-space: nowrap;
-  }
-  .showcase__frame {
-    border-radius: 0 6px 6px 6px;
+  .showcase__screens {
+    height: 450px;
   }
 }

@@ -3,29 +3,38 @@
 /* ─── Design Tokens ──────────────────────────────────────── */
 :root {
   /* Backgrounds */
-  --bg-void:    #030303;
-  --bg-darker:  #050505;
-  --bg-dark:    #0a0a0a;
-  --bg-panel:   #111111;
-  --bg-raised:  #161616;
+  --bg-void:    #070809;
+  --bg-dark:    #0B0E0C;
+  --bg-panel:   #101410;
+  --bg-raised:  #151A16;
 
   /* Borders */
-  --border-dim:    #1a1a1a;
-  --border-color:  #222222;
-  --border-bright: #333333;
+  --border-dim:    #1B211D;
+  --border-color:  #252D27;
+  --border-bright: #343D35;
 
   /* Text */
-  --text-primary:   #ebebeb;
-  --text-secondary: #888888;
-  --text-muted:     #444444;
+  --text-primary:   #F3F4F1;
+  --text-secondary: #A7ADA7;
+  --text-muted:     #6F766F;
 
-  /* Accents — same as the app */
-  --accent-green:  #5c8a63;
-  --accent-green-glow: rgba(92, 138, 99, 0.18);
-  --accent-red:    #b84b4b;
-  --accent-orange: #c27d38;
-  --accent-blue:   #4a6fa5;
-  --accent-blue-glow: rgba(74, 111, 165, 0.15);
+  /* Accents */
+  --accent-primary: #86B88A;
+  --accent-primary-hover: #A4D3A7;
+  --accent-primary-glow: rgba(134, 184, 138, 0.20);
+  
+  --accent-violet: #9B8AFB;
+  --accent-violet-glow: rgba(155, 138, 251, 0.13);
+  
+  --accent-cyan: #67D9E8;
+  --accent-cyan-glow: rgba(103, 217, 232, 0.10);
+
+  /* Legacy mappings to maintain compatibility */
+  --accent-green: var(--accent-primary);
+  --accent-green-glow: var(--accent-primary-glow);
+  --accent-red:    #EC7272;
+  --accent-orange: #E5A75D;
+  --accent-blue:   var(--accent-cyan);
 
   /* Typography */
   --font-serif: 'Playfair Display', Georgia, serif;
@@ -34,11 +43,33 @@
 
   /* Layout */
   --max-width: 1200px;
-  --section-padding: 7rem 2rem;
+  --section-padding: 8rem 2rem;
 
-  /* Transitions */
+  /* Transitions / Motion System */
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out: cubic-bezier(0.0, 0, 0.2, 1);
+  --ease-flow: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  
+  --duration-fast: 250ms;
+  --duration-medium: 500ms;
+  --duration-slow: 1000ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms !important;
+    --duration-medium: 0ms !important;
+    --duration-slow: 0ms !important;
+    --ease-flow: linear !important;
+    --ease-smooth: linear !important;
+  }
+  
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 /* ─── Reset ──────────────────────────────────────────────── */
@@ -95,6 +126,21 @@ section {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 200px 200px;
+}
+
+#cursor-glow {
+  position: fixed;
+  top: 50vh;
+  left: 50vw;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle closest-side, var(--accent-primary-glow), transparent 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+  mix-blend-mode: screen;
+  will-change: transform;
 }
 
 /* ─── Buttons ────────────────────────────────────────────── */
