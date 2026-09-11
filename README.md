@@ -89,8 +89,12 @@ npm run dev
 **4. Production build:**
 ```bash
 npm run build
+# Output: dist/ — ~219kB JS (68kB gzipped), ~25kB CSS
+
 npm run preview   # Preview the production build locally
 ```
+
+> This is a pure JavaScript project. There is no TypeScript compiler step — `npm run build` runs `vite build` directly.
 
 ---
 

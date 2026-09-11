@@ -1,7 +1,8 @@
-import { Download, Monitor, Apple, Terminal, Smartphone } from 'lucide-react';
+import { Download as DownloadIcon, Monitor, Apple, Terminal, Smartphone } from 'lucide-react';
 import { endpoints } from '../lib/api.js';
 import { useDownloadCount } from '../hooks/useDownloadCount.js';
 import './Download.css';
+
 
 const platforms = [
   {
@@ -71,7 +72,7 @@ export default function Download() {
           className="btn btn-primary download__btn reveal reveal-delay-3"
           aria-label="Download FlowState for Windows"
         >
-          <Download size={18} strokeWidth={2} />
+          <DownloadIcon size={18} strokeWidth={2} />
           Download for Windows
         </a>
 

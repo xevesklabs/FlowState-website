@@ -8,6 +8,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 
 ### Added
+- **Favicon:** Added custom "fs" monogram logo as the site favicon (`/favicon.png`).
 - **Hero Section:** Full-bleed dark hero with dot-grid background, dual radial green/blue glows, large Playfair Display headline with italic green accent, primary Download CTA and ghost GitHub button, and a floating CSS-drawn Kanban board mockup with a gentle float animation.
 - **KanbanMockup Component:** Pixel-faithful CSS replica of the FlowState Kanban board including window chrome bar, 3-column layout, priority badges, and task cards.
 - **Stats Bar:** Horizontal 4-item trust row (Offline, Zero Latency, Private by Design, No Subscriptions) with Lucide icons, column dividers, and hover highlight. Responsive 2-column on mobile.
@@ -18,7 +19,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Showcase Section:** Tab switcher (Dashboard / Tasks / Notes / Pomodoro) connected to a glassmorphism app frame with window chrome. Active tab connects visually to the frame border. Each screen swaps in with a 250ms fade-in animation. Horizontally scrollable on mobile.
 - **Download Section:** Centred layout with a green radial background glow, oversized download button with glow shadow, live download counter (gracefully hidden when API is offline), platform pills (Windows active, macOS/Linux/iOS/Android tagged v2), and a reassurance strip (Local Data · No Account · Free Forever · Open Source).
 - **useDownloadCount Hook:** Async hook fetching `/api/stats` from flowstate-api for the total download count. Silently fails so the UI degrades gracefully when the API is offline.
-- **vite.config.js + React dependencies:** Added `@vitejs/plugin-react`, `react`, `react-dom` — fixed missing dependency error from vanilla Vite scaffold.
+### Fixed
+- **Download icon naming conflict:** Renamed Lucide `Download` import to `DownloadIcon` in `Download.jsx` to prevent collision with the component's own name, which caused a parse error during build.
+- **Missing icon exports:** Replaced `Github` and `Twitter` (removed from lucide-react v1) with `ExternalLink` and `XIcon`. Updated Footer social links accordingly.
+- **Build script:** Removed `tsc &&` from `package.json` build script — project is pure JavaScript, no TypeScript compiler needed.
+
 
 
 ---

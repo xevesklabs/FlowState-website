@@ -21,6 +21,8 @@ index.html → src/main.jsx → src/App.jsx
 1. Renders the full page by composing all section components in order.
 2. Runs a single global `useScrollReveal()` hook that attaches one `IntersectionObserver` to every `.reveal` element on the page, adding `.visible` when they enter the viewport (threshold `0.12`) and then `unobserve`s them. This drives all scroll-entrance animations site-wide.
 
+> **Note on icons:** This project uses `lucide-react v1`. Some icons available in older versions (`Github`, `Twitter`) have been removed. Use `ExternalLink` and `XIcon` for social links. Always verify icon availability with `node -e "const l = require('./node_modules/lucide-react/dist/cjs/lucide-react.js'); console.log(Object.keys(l).filter(k => k === 'YourIconName'))"` before adding new icons.
+
 ---
 
 ## Component Tree
@@ -189,7 +191,7 @@ flowstate-website/
 | Platform | Vercel |
 | Domain | `flowstate.xevesk.com` |
 | DNS | `CNAME flowstate → cname.vercel-dns.com` |
-| Build command | `npm run build` |
+| Build command | `vite build` (via `npm run build`) |
 | Output directory | `dist/` |
 | Env var | `VITE_API_URL` → deployed `flowstate-api` URL |
 

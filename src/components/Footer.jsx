@@ -1,4 +1,4 @@
-import { Github, Twitter } from 'lucide-react';
+import { ExternalLink, XIcon } from 'lucide-react';
 import './Footer.css';
 
 const footerLinks = {
@@ -33,22 +33,22 @@ export default function Footer() {
           </p>
           <div className="footer__social">
             <a
-              href="https://github.com"
+              href="https://github.com/xevesklabs/FlowState"
               className="footer__social-link"
               aria-label="GitHub"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Github size={18} strokeWidth={1.5} />
+              <ExternalLink size={16} strokeWidth={1.5} />
             </a>
             <a
-              href="https://twitter.com"
+              href="https://x.com"
               className="footer__social-link"
-              aria-label="Twitter / X"
+              aria-label="X / Twitter"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Twitter size={18} strokeWidth={1.5} />
+              <XIcon size={16} strokeWidth={1.5} />
             </a>
           </div>
         </div>
