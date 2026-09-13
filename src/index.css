@@ -2,39 +2,54 @@
 
 /* ─── Design Tokens ──────────────────────────────────────── */
 :root {
-  /* Backgrounds */
-  --bg-void:    #070809;
-  --bg-dark:    #0B0E0C;
-  --bg-panel:   #101410;
-  --bg-raised:  #151A16;
+  /* BACKGROUND */
+  --bg-void: #05070B;
+  --bg-midnight: #080C13;
+  --bg-deep: #0C111A;
+  --bg-panel: #101721;
+  --bg-raised: #151D29;
 
-  /* Borders */
-  --border-dim:    #1B211D;
-  --border-color:  #252D27;
-  --border-bright: #343D35;
+  /* BORDERS */
+  --border-dim: #171F2A;
+  --border-default: #222C39;
+  --border-strong: #313D4D;
+  --border-color: var(--border-default); /* Alias for existing layout classes */
+  --border-bright: var(--border-strong); /* Alias */
 
-  /* Text */
-  --text-primary:   #F3F4F1;
-  --text-secondary: #A7ADA7;
-  --text-muted:     #6F766F;
+  /* TEXT */
+  --text-primary: #F4F5F7;
+  --text-secondary: #B4BAC5;
+  --text-muted: #727B89;
 
-  /* Accents */
-  --accent-primary: #86B88A;
-  --accent-primary-hover: #A4D3A7;
-  --accent-primary-glow: rgba(134, 184, 138, 0.20);
-  
-  --accent-violet: #9B8AFB;
-  --accent-violet-glow: rgba(155, 138, 251, 0.13);
-  
-  --accent-cyan: #67D9E8;
-  --accent-cyan-glow: rgba(103, 217, 232, 0.10);
+  /* MOONLIGHT */
+  --moonlight: #9AAFD3;
+  --moonlight-bright: #C0D0EA;
+  --moonlight-glow: rgba(154, 175, 211, 0.12);
 
-  /* Legacy mappings to maintain compatibility */
+  /* FAINT NIGHT VIOLET */
+  --night-violet: #8D8AB6;
+  --night-violet-glow: rgba(141, 138, 182, 0.07);
+
+  /* STARLIGHT */
+  --starlight: #FFFFFF;
+
+  /* SEMANTIC */
+  --success: #91B9A0;
+  --warning: #D3A66E;
+  --danger: #D77E88;
+
+  /* Backward Compatibility Aliases for components */
+  --accent-primary: var(--moonlight);
+  --accent-primary-hover: var(--moonlight-bright);
+  --accent-primary-glow: var(--moonlight-glow);
+  --accent-violet: var(--night-violet);
+  --accent-violet-glow: var(--night-violet-glow);
+  --accent-cyan: var(--moonlight-bright);
   --accent-green: var(--accent-primary);
   --accent-green-glow: var(--accent-primary-glow);
-  --accent-red:    #EC7272;
-  --accent-orange: #E5A75D;
-  --accent-blue:   var(--accent-cyan);
+  --accent-red: var(--danger);
+  --accent-orange: var(--warning);
+  --accent-blue: var(--accent-cyan);
 
   /* Typography */
   --font-serif: 'Playfair Display', Georgia, serif;
@@ -134,11 +149,11 @@ section {
   left: 50vw;
   width: 100vw;
   height: 100vh;
-  background: radial-gradient(circle closest-side, var(--accent-primary-glow), transparent 100%);
+  background: radial-gradient(circle closest-side, var(--moonlight-glow), transparent 100%);
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.4;
+  opacity: 1;
   mix-blend-mode: screen;
   will-change: transform;
 }
@@ -159,14 +174,14 @@ section {
 }
 
 .btn-primary {
-  background-color: var(--accent-green);
-  color: #fff;
-  border: 1px solid var(--accent-green);
-  box-shadow: 0 0 0 0 var(--accent-green-glow);
+  background-color: var(--starlight);
+  color: var(--bg-void);
+  border: 1px solid var(--starlight);
+  box-shadow: 0 0 0 0 var(--moonlight-glow);
 }
 .btn-primary:hover {
-  background-color: #6a9e72;
-  box-shadow: 0 0 32px 6px var(--accent-green-glow);
+  background-color: #E2E4E9;
+  box-shadow: 0 0 40px 8px var(--moonlight-glow);
   transform: translateY(-1px);
 }
 
@@ -188,7 +203,7 @@ section {
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--accent-green);
+  color: var(--moonlight);
   margin-bottom: 1rem;
 }
 

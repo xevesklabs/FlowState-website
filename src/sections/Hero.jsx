@@ -28,6 +28,7 @@ export default function Hero() {
     <section className="hero" id="hero" aria-label="Hero">
       {/* Soft atmospheric gradients */}
       <div className="hero__glow hero__glow--primary" aria-hidden="true" />
+      <div className="hero__glow hero__glow--secondary" aria-hidden="true" />
 
       <div className="container hero__inner">
         <div className="hero__copy">
